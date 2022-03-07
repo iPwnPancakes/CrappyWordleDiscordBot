@@ -1,3 +1,5 @@
+const { BotMentioned } = require('../Events/BotMentioned');
+
 class DiscordMessageController {
     /**
      * @param {User} botUser
@@ -12,7 +14,8 @@ class DiscordMessageController {
 
     handleMessageCreated(message) {
         if (message.mentions.has(this.botUser.getID())) {
-            this.pubsub.publish();
+            const event = new BotMentioned();
+            this.pubsub.publish(event);
         }
     }
 }

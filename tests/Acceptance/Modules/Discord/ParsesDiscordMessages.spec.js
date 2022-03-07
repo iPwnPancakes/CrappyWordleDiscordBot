@@ -4,6 +4,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const { Message } = require('../../../../src/Modules/Discord/Models/Message');
 const { PubSub } = require('../../../../src/Infrastructure/PubSub');
+const { BotMentioned } = require('../../../../src/Modules/Discord/Events/BotMentioned');
 
 describe('Parses incoming messages coming from Discord', () => {
     it('Should ignore messages that dont include the Bot\'s ID', () => {
@@ -25,10 +26,11 @@ describe('Parses incoming messages coming from Discord', () => {
         const pubSub = makePubSub(fakePublishFn);
         const controller = new DiscordMessageController(fakeBotUser, pubSub);
         const message = makeMessage('test_message', [fakeBotUser]);
+        const event = new BotMentioned();
 
         controller.handleMessageCreated(message);
 
-        expect(fakePublishFn.called).to.equal(true);
+        expect(fakePublishFn.calledWith(event)).to.equal(true);
     });
 });
 
