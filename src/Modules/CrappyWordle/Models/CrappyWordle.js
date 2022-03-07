@@ -1,29 +1,56 @@
+const { Word } = require('./Word');
+
 class CrappyWordle {
-    constructor() {
-        this._word = 'default';
-        this._progress = '*******';
+    /**
+     *
+     * @param {Word} word
+     * @param {Word} progress
+     */
+    constructor(word, progress) {
+        if (word && progress) {
+            this._word = word;
+            this._progress = progress;
+        } else {
+            this._word = new Word('default');
+            this._progress = new Word('*******');
+        }
+
     }
 
     /**
+     * @param {Word} word
      *
      * @returns {boolean}
      */
     start(word) {
         this._word = word;
-        this._progress = word.slice().replace(/./g, '*');
+        this._progress = new Word(word.toString().slice().replace(/./g, '*'));
 
         return true;
     }
 
     /**
-     * @returns {string}
+     * @returns {Word}
      */
     getWord() {
         return this._word;
     }
 
+    /**
+     * @returns {Word}
+     */
     getProgress() {
         return this._progress;
+    }
+
+    /**
+     *
+     * @param {Guess} guess
+     *
+     * @return void
+     */
+    guessWord(guess) {
+        this._progress = guess.getCharacterUnion(this._progress);
     }
 }
 
