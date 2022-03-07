@@ -1,8 +1,12 @@
 const { Word } = require('./Word');
 
 class Guess extends Word {
-    constructor(guess) {
-        super(guess);
+    /**
+     *
+     * @param {String} str
+     */
+    constructor(str) {
+        super(str);
     }
 
     /**
