@@ -11,7 +11,7 @@ class DiscordMessageController {
     }
 
     handleMessageCreated(message) {
-        if (message.mentions.size > 0 && message.mentions.has(this.botUser.getID())) {
+        if (message.mentions.has(this.botUser.getID())) {
             this.pubsub.publish();
         }
     }
