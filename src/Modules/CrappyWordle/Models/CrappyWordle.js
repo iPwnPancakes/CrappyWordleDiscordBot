@@ -1,6 +1,7 @@
 class CrappyWordle {
     constructor() {
         this._word = 'default';
+        this._progress = '*******';
     }
 
     /**
@@ -9,6 +10,7 @@ class CrappyWordle {
      */
     start(word) {
         this._word = word;
+        this._progress = word.slice().replace(/./g, '*');
 
         return true;
     }
@@ -18,6 +20,10 @@ class CrappyWordle {
      */
     getWord() {
         return this._word;
+    }
+
+    getProgress() {
+        return this._progress;
     }
 }
 

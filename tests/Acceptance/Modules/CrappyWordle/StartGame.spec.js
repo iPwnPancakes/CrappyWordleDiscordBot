@@ -12,4 +12,15 @@ describe('Start CrappyWordle', () => {
         // Assert
         expect(game.getWord()).to.equal('random12');
     });
+
+    it('Game should be initialized with progress', () => {
+        // Assert
+        const game = new CrappyWordle();
+
+        // Act
+        game.start('random12');
+
+        // Assert
+        expect(game.getProgress()).to.equal('********');
+    });
 });
