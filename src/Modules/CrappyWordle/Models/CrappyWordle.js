@@ -21,4 +21,4 @@ class CrappyWordle {
     }
 }
 
-module.exports = { Game: CrappyWordle };
+module.exports = { CrappyWordle };
