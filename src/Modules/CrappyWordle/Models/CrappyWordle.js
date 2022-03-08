@@ -24,7 +24,7 @@ class CrappyWordle {
      */
     start(word) {
         this._word = word;
-        this._progress = new Word(word.toString().slice().replace(/./g, '*'));
+        this._progress = new Progress(word);
 
         return true;
     }
@@ -37,10 +37,18 @@ class CrappyWordle {
     }
 
     /**
-     * @returns {Progress}
+     * @returns {Word}
      */
     getProgress() {
-        return this._progress;
+        return this._progress.getProgressAsWord();
+    }
+
+    /**
+     *
+     * @param {Word} guess
+     */
+    guessWord(guess) {
+        this._progress.applyWord(guess);
     }
 }
 

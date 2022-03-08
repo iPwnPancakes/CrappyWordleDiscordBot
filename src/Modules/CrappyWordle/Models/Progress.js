@@ -16,7 +16,7 @@ class Progress {
 
     }
 
-    getProgress() {
+    getProgressAsWord() {
         return this._progress;
     }
 

@@ -8,7 +8,7 @@ describe('Models: Progress', () => {
         const initialProgress = new Word('t**t');
         const progress = new Progress(word, initialProgress);
 
-        expect(progress.getProgress().toString()).to.equal('t**t');
+        expect(progress.getProgressAsWord().toString()).to.equal('t**t');
     });
 
     it('applyWord should only replace the matching characters', () => {
@@ -19,6 +19,6 @@ describe('Models: Progress', () => {
 
         progress.applyWord(guess);
 
-        expect(progress.getProgress().toString()).to.equal('te*t');
+        expect(progress.getProgressAsWord().toString()).to.equal('te*t');
     })
 });
