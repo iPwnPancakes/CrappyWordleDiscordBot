@@ -1,4 +1,8 @@
 class Word {
+    /**
+     *
+     * @param {String} initial
+     */
     constructor(initial) {
         this.str = initial;
     }
