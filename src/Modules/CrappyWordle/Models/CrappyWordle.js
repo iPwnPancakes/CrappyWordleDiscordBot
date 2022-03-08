@@ -1,10 +1,11 @@
 const { Word } = require('./Word');
+const { Progress } = require('./Progress');
 
 class CrappyWordle {
     /**
      *
      * @param {Word} word
-     * @param {Word} progress
+     * @param {Progress} progress
      */
     constructor(word = null, progress = null) {
         if (word && progress) {
@@ -12,9 +13,8 @@ class CrappyWordle {
             this._progress = progress;
         } else {
             this._word = new Word('default');
-            this._progress = new Word('*******');
+            this._progress = new Progress(this._word);
         }
-
     }
 
     /**
@@ -37,7 +37,7 @@ class CrappyWordle {
     }
 
     /**
-     * @returns {Word}
+     * @returns {Progress}
      */
     getProgress() {
         return this._progress;

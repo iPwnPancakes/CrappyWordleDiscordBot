@@ -7,10 +7,18 @@ describe('Models: Progress', () => {
         const word = new Word('test');
         const initialProgress = new Word('t**t');
         const progress = new Progress(word, initialProgress);
+
+        expect(progress.getProgress().toString()).to.equal('t**t');
+    });
+
+    it('applyWord should only replace the matching characters', () => {
+        const word = new Word('test');
+        const initialProgress = new Word('t**t');
+        const progress = new Progress(word, initialProgress);
         const guess = new Word('text');
 
         progress.applyWord(guess);
 
         expect(progress.getProgress().toString()).to.equal('te*t');
-    });
+    })
 });
