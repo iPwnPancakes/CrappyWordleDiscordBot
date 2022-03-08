@@ -14,7 +14,7 @@ describe('Start CrappyWordle', () => {
         expect(game.getWord().toString()).to.equal('random12');
     });
 
-    it('Game should be initialized with progress', () => {
+    it('Game should be initialized with blank progress if no progress given', () => {
         // Assert
         const word = new Word('random12');
         const game = new CrappyWordle();
