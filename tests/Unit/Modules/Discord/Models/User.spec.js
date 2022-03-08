@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { User } = require('../../../../../src/Modules/Discord/Models/User');
 
-describe('User', () => {
+describe('Models: User', () => {
     it('getID should return first parameter in constructor', () => {
         const user = new User('testeroni', 'username', 'disc');
 

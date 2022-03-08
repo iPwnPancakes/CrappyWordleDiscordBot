@@ -42,16 +42,6 @@ class CrappyWordle {
     getProgress() {
         return this._progress;
     }
-
-    /**
-     *
-     * @param {Guess} guess
-     *
-     * @return void
-     */
-    guessWord(guess) {
-        this._progress = guess.getCharacterUnion(this._progress);
-    }
 }
 
 module.exports = { CrappyWordle };
