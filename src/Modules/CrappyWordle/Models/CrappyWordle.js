@@ -6,7 +6,7 @@ class CrappyWordle {
      * @param {Word} word
      * @param {Word} progress
      */
-    constructor(word, progress) {
+    constructor(word = null, progress = null) {
         if (word && progress) {
             this._word = word;
             this._progress = progress;

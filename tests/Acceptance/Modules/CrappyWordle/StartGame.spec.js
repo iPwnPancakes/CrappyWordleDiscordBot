@@ -17,10 +17,10 @@ describe('Start CrappyWordle', () => {
     it('Game should be initialized with progress', () => {
         // Assert
         const word = new Word('random12');
-        const game = new CrappyWordle(word);
+        const game = new CrappyWordle();
 
         // Act
-        game.start(new Word('random12'));
+        game.start(word);
 
         // Assert
         expect(game.getProgress().toString()).to.equal('********');
