@@ -26,11 +26,10 @@ describe('Parses incoming messages coming from Discord', () => {
         const pubSub = makePubSub(fakePublishFn);
         const controller = new DiscordMessageController(fakeBotUser, pubSub);
         const message = makeMessage('test_message', [fakeBotUser]);
-        const event = new BotMentioned();
 
         controller.handleMessageCreated(message);
 
-        expect(fakePublishFn.calledWith(event)).to.equal(true);
+        expect(fakePublishFn.called).to.equal(true);
     });
 });
 
