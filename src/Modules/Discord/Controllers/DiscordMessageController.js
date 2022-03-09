@@ -1,14 +1,15 @@
 const { BotMentioned } = require('../Events/BotMentioned');
+const { MessageBroker } = require('../../../Infrastructure/MessageBroker');
 const { Message } = require('discord.js');
 
 class DiscordMessageController {
     /**
      * @param {User} botUser
-     * @param {PubSub} pubSub
+     * @param {MessageBroker} messageBroker
      */
-    constructor(botUser, pubSub) {
+    constructor(botUser, messageBroker) {
         this.botUser = botUser;
-        this.pubsub = pubSub;
+        this.messageBroker = messageBroker;
 
         this.handleMessageCreated = this.handleMessageCreated.bind(this);
     }
@@ -21,7 +22,7 @@ class DiscordMessageController {
     handleMessageCreated(message) {
         if (message.mentions.has(this.botUser.getID())) {
             const event = new BotMentioned();
-            this.pubsub.publish(event);
+            this.messageBroker.publish(event);
         }
     }
 }

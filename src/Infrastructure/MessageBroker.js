@@ -35,4 +35,4 @@ class MessageBroker {
     }
 }
 
-module.exports = { PubSub: MessageBroker };
+module.exports = { MessageBroker };

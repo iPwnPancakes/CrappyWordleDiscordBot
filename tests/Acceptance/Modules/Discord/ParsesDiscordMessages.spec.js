@@ -3,14 +3,14 @@ const { DiscordMessageController } = require('../../../../src/Modules/Discord/Co
 const sinon = require('sinon');
 const { expect } = require('chai');
 const { Message } = require('../../../../src/Modules/Discord/Models/Message');
-const { PubSub } = require('../../../../src/Infrastructure/MessageBroker');
+const { MessageBroker } = require('../../../../src/Infrastructure/MessageBroker');
 
 describe('Parses incoming messages coming from Discord', () => {
     it('Should ignore messages that dont mention the Bot', () => {
         const fakeBotUser = new User('snowflake', 'botname', 'testeroni');
         const fakePublishFn = sinon.spy();
-        const pubSub = makePubSub(fakePublishFn);
-        const controller = new DiscordMessageController(fakeBotUser, pubSub);
+        const messageBroker = makeMessageBroker(fakePublishFn);
+        const controller = new DiscordMessageController(fakeBotUser, messageBroker);
         const messageUser = new User('dip', 'test_user', 'test_discriminator');
         const message = makeMessage('test_message', [messageUser]);
 
@@ -22,8 +22,8 @@ describe('Parses incoming messages coming from Discord', () => {
     it('Should notify any relevant parties if Bot is mentioned', () => {
         const fakeBotUser = new User('snowflake', 'botname', 'testeroni');
         const fakePublishFn = sinon.spy();
-        const pubSub = makePubSub(fakePublishFn);
-        const controller = new DiscordMessageController(fakeBotUser, pubSub);
+        const messageBroker = makeMessageBroker(fakePublishFn);
+        const controller = new DiscordMessageController(fakeBotUser, messageBroker);
         const message = makeMessage('test_message', [fakeBotUser]);
 
         controller.handleMessageCreated(message);
@@ -32,18 +32,18 @@ describe('Parses incoming messages coming from Discord', () => {
     });
 });
 
-function makePubSub(pub, sub) {
-    const pubSub = new PubSub();
+function makeMessageBroker(pub, sub) {
+    const messageBroker = new MessageBroker();
 
     if (pub) {
-        pubSub.publish = pub;
+        messageBroker.publish = pub;
     }
 
     if (sub) {
-        pubSub.subscribe = sub;
+        messageBroker.subscribe = sub;
     }
 
-    return pubSub;
+    return messageBroker;
 }
 
 function makeMessage(body, initialMentions = []) {

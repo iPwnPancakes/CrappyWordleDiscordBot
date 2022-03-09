@@ -1,10 +1,10 @@
 const { CrappyWordle } = require('../Models/CrappyWordle');
-const { PubSub } = require('../../../Infrastructure/MessageBroker');
+const { MessageBroker } = require('../../../Infrastructure/MessageBroker');
 const { NewGameCreated } = require('../Events/NewGameCreated');
 
 class CrappyWordleEventController {
     /**
-     * @param {PubSub} messageBroker
+     * @param {MessageBroker} messageBroker
      */
     constructor(messageBroker) {
         this.messageBroker = messageBroker;
