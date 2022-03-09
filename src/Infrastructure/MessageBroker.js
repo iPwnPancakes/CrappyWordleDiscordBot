@@ -8,6 +8,9 @@ class MessageBroker {
 
     constructor(logger) {
         this.logger = logger;
+
+        this.subscribe = this.subscribe.bind(this);
+        this.publish = this.publish.bind(this);
     }
 
     subscribe(topic, listener) {

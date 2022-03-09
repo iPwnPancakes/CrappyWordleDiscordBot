@@ -1,18 +1,19 @@
 const { BotMentioned } = require('../Modules/Discord/Events/BotMentioned');
 const { CrappyWordleEventController } = require('../Modules/CrappyWordle/Controllers/CrappyWordleEventController');
-const { Event } = require('../Infrastructure/Event');
+const { Provider } = require('./Provider');
 
-class EventProvider {
+class EventProvider extends Provider {
     /**
      *
      * @param {CrappyWordleEventController} gameEventController
      */
     constructor(gameEventController) {
+        super();
         this.gameEventcontroller = gameEventController;
         this._eventMap = new Map();
     }
 
-    boot() {
+    register() {
         this._eventMap.set(BotMentioned.getName(), [this.gameEventcontroller.handleIntentToCreateNewGame]);
     }
 
