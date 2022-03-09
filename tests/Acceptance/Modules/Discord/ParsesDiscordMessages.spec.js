@@ -7,7 +7,7 @@ const { PubSub } = require('../../../../src/Infrastructure/PubSub');
 const { BotMentioned } = require('../../../../src/Modules/Discord/Events/BotMentioned');
 
 describe('Parses incoming messages coming from Discord', () => {
-    it('Should ignore messages that dont include the Bot\'s ID', () => {
+    it('Should ignore messages that dont mention the Bot', () => {
         const fakeBotUser = new User('snowflake', 'botname', 'testeroni');
         const fakePublishFn = sinon.spy();
         const pubSub = makePubSub(fakePublishFn);
@@ -20,7 +20,7 @@ describe('Parses incoming messages coming from Discord', () => {
         expect(fakePublishFn.called).to.equal(false);
     });
 
-    it('Should notify any relevant parties if message includes Bot ID', () => {
+    it('Should notify any relevant parties if Bot is mentioned', () => {
         const fakeBotUser = new User('snowflake', 'botname', 'testeroni');
         const fakePublishFn = sinon.spy();
         const pubSub = makePubSub(fakePublishFn);
