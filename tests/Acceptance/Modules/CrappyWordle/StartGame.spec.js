@@ -2,7 +2,7 @@ const { CrappyWordle } = require('../../../../src/Modules/CrappyWordle/Models/Cr
 const { expect } = require('chai');
 const { Word } = require('../../../../src/Modules/CrappyWordle/Models/Word');
 
-describe('Start CrappyWordle', () => {
+describe('Start Game', () => {
     it('Random word should be chosen when game is started', () => {
         // Assert
         const game = new CrappyWordle();
