@@ -4,7 +4,6 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const { Message } = require('../../../../src/Modules/Discord/Models/Message');
 const { PubSub } = require('../../../../src/Infrastructure/PubSub');
-const { BotMentioned } = require('../../../../src/Modules/Discord/Events/BotMentioned');
 
 describe('Parses incoming messages coming from Discord', () => {
     it('Should ignore messages that dont mention the Bot', () => {
