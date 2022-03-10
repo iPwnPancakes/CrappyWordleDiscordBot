@@ -1,4 +1,10 @@
+const { GameRepository } = require('../Repositories/GameRepository');
+
 class CrappyWordleService {
+    /**
+     *
+     * @param {GameRepository} gameRepository
+     */
     constructor(gameRepository) {
         this.gameRepository = gameRepository;
     }
@@ -7,9 +13,11 @@ class CrappyWordleService {
      * Persists the game
      *
      * @param {CrappyWordle} game
+     *
+     * @return Promise<void>
      */
-    save(game) {
-        this.gameRepository.save(game);
+    async save(game) {
+        await this.gameRepository.save(game);
     }
 }
 

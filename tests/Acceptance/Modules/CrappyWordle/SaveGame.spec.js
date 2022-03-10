@@ -1,17 +1,19 @@
-const sinon = require('sinon');
 const { CrappyWordle } = require('../../../../src/Modules/CrappyWordle/Models/CrappyWordle');
 const { CrappyWordleService } = require('../../../../src/Modules/CrappyWordle/Services/CrappyWordleService');
 const { expect } = require('chai');
+const { GameRepository } = require('../../../../src/Modules/CrappyWordle/Repositories/GameRepository');
+const sinon = require('sinon');
 
 describe('Save Game', () => {
-    it('Should be able to save a CrappyWordleGame', () => {
-        const fakeSaveFn = sinon.spy();
-        const fakeGameRepository = { save: fakeSaveFn };
-        const service = new CrappyWordleService(fakeGameRepository);
+    it('Should be able to save a CrappyWordleGame', async () => {
+        const gameRepository = new GameRepository();
+        const fakeSaveMethod = sinon.spy();
+        gameRepository.save = fakeSaveMethod;
+        const service = new CrappyWordleService(gameRepository);
         const game = new CrappyWordle();
 
-        service.save(game);
+        await service.save(game);
 
-        expect(fakeSaveFn.calledWith(game)).to.be.true;
+        expect(fakeSaveMethod.calledWith(game)).to.be.true;
     });
 });
