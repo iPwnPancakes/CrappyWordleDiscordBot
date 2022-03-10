@@ -1,4 +1,4 @@
-const { Event } = require('../Infrastructure/Event');
+const { Event } = require('../Event');
 
 class MessageBroker {
     /**

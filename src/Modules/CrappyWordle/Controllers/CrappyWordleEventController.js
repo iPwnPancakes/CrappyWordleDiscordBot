@@ -1,5 +1,5 @@
 const { CrappyWordle } = require('../Models/CrappyWordle');
-const { MessageBroker } = require('../../../Infrastructure/MessageBroker');
+const { MessageBroker } = require('../../../Infrastructure/Services/MessageBroker');
 const { NewGameCreated } = require('../Events/NewGameCreated');
 
 class CrappyWordleEventController {

@@ -1,4 +1,4 @@
-const { MessageBroker } = require('../MessageBroker');
+const { MessageBroker } = require('../Services/MessageBroker');
 const { Provider } = require('./Provider');
 const { BotMentioned } = require('../../Modules/Discord/Events/BotMentioned');
 const { CrappyWordleEventController } = require('../../Modules/CrappyWordle/Controllers/CrappyWordleEventController');

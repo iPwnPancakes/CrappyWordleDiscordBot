@@ -3,7 +3,7 @@ const { DiscordMessageController } = require('../../../../src/Modules/Discord/Co
 const sinon = require('sinon');
 const { expect } = require('chai');
 const { Message } = require('../../../../src/Modules/Discord/Models/Message');
-const { MessageBroker } = require('../../../../src/Infrastructure/MessageBroker');
+const { MessageBroker } = require('../../../../src/Infrastructure/Services/MessageBroker');
 
 describe('Parses incoming messages coming from Discord', () => {
     it('Should ignore messages that dont mention the Bot', () => {

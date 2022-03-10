@@ -1,8 +1,8 @@
 const { BOT_USER } = require('./Infrastructure/config');
 const { DiscordMessageController } = require('./Modules/Discord/Controllers/DiscordMessageController');
 const { discordClientFactory } = require('./Modules/Discord/Infrastructure/DiscordClientFactory');
-const { MessageBroker } = require('./Infrastructure/MessageBroker');
-const { ConsoleLogger } = require('./Infrastructure/ConsoleLogger');
+const { MessageBroker } = require('./Infrastructure/Services/MessageBroker');
+const { ConsoleLogger } = require('./Infrastructure/Services/ConsoleLogger');
 const { CrappyWordleEventController } = require('./Modules/CrappyWordle/Controllers/CrappyWordleEventController');
 const { MessageBrokerProvider } = require('./Infrastructure/Providers/MessageBrokerProvider');
 const { App } = require('./Infrastructure/App');

@@ -1,5 +1,5 @@
 const { BotMentioned } = require('../Events/BotMentioned');
-const { MessageBroker } = require('../../../Infrastructure/MessageBroker');
+const { MessageBroker } = require('../../../Infrastructure/Services/MessageBroker');
 const { Message } = require('discord.js');
 
 class DiscordMessageController {
