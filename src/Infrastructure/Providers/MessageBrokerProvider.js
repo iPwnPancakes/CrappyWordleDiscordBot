@@ -1,7 +1,7 @@
-const { MessageBroker } = require('./MessageBroker');
+const { MessageBroker } = require('../MessageBroker');
 const { Provider } = require('./Provider');
-const { BotMentioned } = require('../Modules/Discord/Events/BotMentioned');
-const { CrappyWordleEventController } = require('../Modules/CrappyWordle/Controllers/CrappyWordleEventController');
+const { BotMentioned } = require('../../Modules/Discord/Events/BotMentioned');
+const { CrappyWordleEventController } = require('../../Modules/CrappyWordle/Controllers/CrappyWordleEventController');
 
 class MessageBrokerProvider extends Provider {
     /**

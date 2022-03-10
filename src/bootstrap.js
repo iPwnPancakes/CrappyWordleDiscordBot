@@ -4,9 +4,9 @@ const { discordClientFactory } = require('./Modules/Discord/Infrastructure/Disco
 const { MessageBroker } = require('./Infrastructure/MessageBroker');
 const { ConsoleLogger } = require('./Infrastructure/ConsoleLogger');
 const { CrappyWordleEventController } = require('./Modules/CrappyWordle/Controllers/CrappyWordleEventController');
-const { MessageBrokerProvider } = require('./Infrastructure/MessageBrokerProvider');
+const { MessageBrokerProvider } = require('./Infrastructure/Providers/MessageBrokerProvider');
 const { App } = require('./Infrastructure/App');
-const { DiscordServerProvider } = require('./Infrastructure/DiscordServerProvider');
+const { DiscordServerProvider } = require('./Infrastructure/Providers/DiscordServerProvider');
 
 const logger = new ConsoleLogger();
 const messageBroker = new MessageBroker(logger);

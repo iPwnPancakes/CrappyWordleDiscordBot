@@ -1,4 +1,4 @@
-const { Provider } = require('./Provider');
+const { Provider } = require('./Providers/Provider');
 
 class App {
     /**

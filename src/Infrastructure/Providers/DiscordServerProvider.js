@@ -1,6 +1,6 @@
 const { Provider } = require('./Provider');
-const { DiscordServer } = require('../Modules/Discord/Infrastructure/server');
-const { DiscordMessageController } = require('../Modules/Discord/Controllers/DiscordMessageController');
+const { DiscordServer } = require('../../Modules/Discord/Infrastructure/server');
+const { DiscordMessageController } = require('../../Modules/Discord/Controllers/DiscordMessageController');
 
 class DiscordServerProvider extends Provider {
     /**
