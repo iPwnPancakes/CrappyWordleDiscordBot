@@ -10,6 +10,7 @@ const { DiscordServerProvider } = require('./Infrastructure/Providers/DiscordSer
 const { CrappyWordleService } = require('./Modules/CrappyWordle/Services/CrappyWordleService');
 const { SqliteGameRepository } = require('./Modules/CrappyWordle/Repositories/Implementations/SqliteGameRepository');
 const { DatabaseConnectionFactory } = require('./Infrastructure/Services/Database/DatabaseConnectionFactory');
+const { RandomWordService } = require('./Modules/CrappyWordle/Services/RandomWordService');
 
 (async () => {
     const logger = new ConsoleLogger();
@@ -19,7 +20,8 @@ const { DatabaseConnectionFactory } = require('./Infrastructure/Services/Databas
     const databaseConnection = await databaseConnectionFactory.createConnection();
     const gameRepository = new SqliteGameRepository(databaseConnection);
     const crappyWordleService = new CrappyWordleService(gameRepository);
-    const gameEventController = new CrappyWordleEventController(messageBroker, crappyWordleService);
+    const randomWordService = new RandomWordService();
+    const gameEventController = new CrappyWordleEventController(messageBroker, crappyWordleService, randomWordService);
     const messageBrokerProvider = new MessageBrokerProvider(messageBroker, gameEventController);
     const discordServerProvider = new DiscordServerProvider(messageController, discordClientFactory);
 
