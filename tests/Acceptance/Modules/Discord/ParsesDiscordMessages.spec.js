@@ -17,6 +17,19 @@ describe('Parses incoming messages coming from Discord', () => {
 
         expect(fakeRouteMethod.called).to.equal(false);
     });
+
+    it('Routes any messages that mention the bot', () => {
+        const fakeBotUser = new User('snowflake', 'botname', 'testeroni');
+        const fakeHandleMethod = sinon.spy();
+        const fakeRouteMethod = () => ({ handle: fakeHandleMethod });
+        let router = getCommandRouter(fakeRouteMethod);
+        const controller = new DiscordMessageController(fakeBotUser, router);
+        const message = makeMessage('test_message', [fakeBotUser]);
+
+        controller.handleMessageCreated(message);
+
+        expect(fakeHandleMethod.called).to.equal(true);
+    });
 });
 
 function getCommandRouter(routeMethod) {
