@@ -27,8 +27,18 @@ jobs:
 
             # Run Tests
             -   run:
+                    name: Create ~/results Folder
+                    command: mkdir ~/results
+            -   run:
                     name: Unit Tests
-                    command: "npm run test:unit"
+                    command: "npm run test:unit -- --reporter mocha-junit-reporter --reporter-options mochaFile=~/results/unit.xml"
             -   run:
                     name: Acceptance Tests
-                    command: "npm run test:acceptance"
+                    command: "npm run test:acceptance -- --reporter mocha-junit-reporter --reporter-options mochaFile=~/results/acceptance.xml"
+
+            # Store Test Results
+            -   store_test_results:
+                    path: ~/results
+            -   store_artifacts:
+                    path: ~/results
+                    destination: results
