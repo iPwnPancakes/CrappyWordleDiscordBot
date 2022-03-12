@@ -11,11 +11,22 @@ const { CrappyWordleService } = require('./Modules/CrappyWordle/Services/CrappyW
 const { SqliteGameRepository } = require('./Modules/CrappyWordle/Repositories/Implementations/SqliteGameRepository');
 const { DatabaseConnectionFactory } = require('./Infrastructure/Services/Database/DatabaseConnectionFactory');
 const { RandomWordService } = require('./Modules/CrappyWordle/Services/RandomWordService');
+const { CommandRouter } = require('./Modules/Discord/Infrastructure/Commands/CommandRouter');
+const { Tokenizer } = require('./Modules/Discord/Infrastructure/Commands/Tokenizer');
+const { DisplayInvalidCommand } = require('./Modules/Discord/Commands/DisplayInvalidCommand');
+const { StartCommand } = require('./Modules/Discord/Commands/StartCommand');
+const { HelpCommand } = require('./Modules/Discord/Commands/HelpCommand');
 
 (async () => {
     const logger = new ConsoleLogger();
     const messageBroker = new MessageBroker(logger);
-    const messageController = new DiscordMessageController(BOT_USER, messageBroker);
+    const tokenizer = new Tokenizer();
+    const invalidCommand = new DisplayInvalidCommand();
+    const helpCommand = new HelpCommand();
+    const startCommand = new StartCommand(messageBroker);
+    const commandMap = createCommandMap(startCommand, helpCommand);
+    const commandRouter = new CommandRouter(tokenizer, commandMap, invalidCommand);
+    const messageController = new DiscordMessageController(BOT_USER, commandRouter);
     const databaseConnectionFactory = new DatabaseConnectionFactory(DB_DATABASE);
     const databaseConnection = await databaseConnectionFactory.createConnection();
     const gameRepository = new SqliteGameRepository(databaseConnection);
@@ -30,5 +41,18 @@ const { RandomWordService } = require('./Modules/CrappyWordle/Services/RandomWor
     app.boot();
 })();
 
+/**
+ *
+ * @param {Command} startCommand
+ * @param {Command} helpCommand
+ *
+ * @return {Map<String, Command>}
+ */
+function createCommandMap(startCommand, helpCommand) {
+    const map = new Map();
 
+    map.set('start', startCommand);
+    map.set('help', helpCommand);
 
+    return map;
+}

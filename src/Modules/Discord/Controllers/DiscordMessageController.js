@@ -1,15 +1,14 @@
-const { BotMentioned } = require('../Events/BotMentioned');
-const { MessageBroker } = require('../../../Infrastructure/Services/MessageBroker');
 const { Message } = require('discord.js');
+const { CommandRouter } = require('../Infrastructure/Commands/CommandRouter');
 
 class DiscordMessageController {
     /**
      * @param {User} botUser
-     * @param {MessageBroker} messageBroker
+     * @param {CommandRouter} commandRouter
      */
-    constructor(botUser, messageBroker) {
+    constructor(botUser, commandRouter) {
         this.botUser = botUser;
-        this.messageBroker = messageBroker;
+        this.commandRouter = commandRouter;
 
         this.handleMessageCreated = this.handleMessageCreated.bind(this);
     }
@@ -24,25 +23,11 @@ class DiscordMessageController {
             return;
         }
 
-        if (this._startCommandGiven(message)) {
-            const event = new BotMentioned();
-            this.messageBroker.publish(event);
-        }
+        this.commandRouter.route(message.content).handle();
     }
 
     botWasMentioned(message) {
         return message.mentions.has(this.botUser.getID());
-    }
-
-    /**
-     * Checks to see if start command was included in message
-     *
-     * @param {Message} message
-     * @return {boolean}
-     * @private
-     */
-    _startCommandGiven(message) {
-        return message.content.toLowerCase().includes('start');
     }
 }
 
