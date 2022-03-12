@@ -19,11 +19,9 @@ class DiscordMessageController {
      * @param {Message} message
      */
     handleMessageCreated(message) {
-        if (!this.botWasMentioned(message)) {
-            return;
+        if (this.botWasMentioned(message)) {
+            this.commandRouter.route(message.content).handle();
         }
-
-        this.commandRouter.route(message.content).handle();
     }
 
     botWasMentioned(message) {
