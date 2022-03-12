@@ -1,8 +1,12 @@
+const { Message } = require('discord.js');
+
 class Command {
     /**
+     * @param {Message} message
+     *
      * @return void
      */
-    handle() {
+    handle(message) {
         throw new Error('Calling default Command');
     }
 }

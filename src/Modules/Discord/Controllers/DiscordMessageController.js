@@ -20,7 +20,7 @@ class DiscordMessageController {
      */
     handleMessageCreated(message) {
         if (this.botWasMentioned(message)) {
-            this.commandRouter.route(message.content).handle();
+            this.commandRouter.route(message.content).handle(message);
         }
     }
 

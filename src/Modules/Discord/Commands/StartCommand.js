@@ -11,7 +11,7 @@ class StartCommand extends Command {
         this.messageBroker = messageBroker;
     }
 
-    handle() {
+    handle(message) {
         const event = new BotMentioned();
         this.messageBroker.publish(event);
     }
