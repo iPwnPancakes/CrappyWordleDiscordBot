@@ -1,4 +1,10 @@
+const { DriverAdapter } = require('./DriverAdapters/DriverAdapter');
+
 class DatabaseConnection {
+    /**
+     *
+     * @param {DriverAdapter} driver
+     */
     constructor(driver) {
         this.driver = driver;
     }

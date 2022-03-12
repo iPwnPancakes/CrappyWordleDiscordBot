@@ -1,4 +1,4 @@
-const { BOT_USER, DB_DATABASE } = require('./Infrastructure/config');
+const { BOT_USER, DB } = require('./Infrastructure/config');
 const { DiscordMessageController } = require('./Modules/Discord/Controllers/DiscordMessageController');
 const { discordClientFactory } = require('./Modules/Discord/Infrastructure/DiscordClientFactory');
 const { MessageBroker } = require('./Infrastructure/Services/MessageBroker');
@@ -27,8 +27,8 @@ const { HelpCommand } = require('./Modules/Discord/Commands/HelpCommand');
     const commandMap = createCommandMap(startCommand, helpCommand);
     const commandRouter = new CommandRouter(tokenizer, commandMap, invalidCommand);
     const messageController = new DiscordMessageController(BOT_USER, commandRouter);
-    const databaseConnectionFactory = new DatabaseConnectionFactory(DB_DATABASE);
-    const databaseConnection = await databaseConnectionFactory.createConnection();
+    const databaseConnectionFactory = new DatabaseConnectionFactory();
+    const databaseConnection = await databaseConnectionFactory.createConnection(DB);
     const gameRepository = new SqliteGameRepository(databaseConnection);
     const crappyWordleService = new CrappyWordleService(gameRepository);
     const randomWordService = new RandomWordService();
