@@ -1,0 +1,44 @@
+version: 2.1
+
+jobs:
+    build:
+        resource_class: 'medium'
+        docker:
+            -   image: cimg/node:16.14
+        steps:
+            - checkout
+            -   run:
+                    name: Updating Apt
+                    command: sudo apt-get update
+            -   run:
+                    name: Installing Environment Dependencies
+                    command: sudo apt-get install sqlite3 python
+            -   restore_cache:
+                    keys:
+                        - node-v1-{{ checksum "package-lock.json" }}
+                        - node-v1-
+            -   run:
+                    name: Install Dependencies
+                    command: npm install --no-audit
+            -   save_cache:
+                    key: node-v1-{{ checksum "package-lock.json" }}
+                    paths:
+                        - node_modules
+
+            # Run Tests
+            -   run:
+                    name: Create ~/results Folder
+                    command: mkdir ~/results
+            -   run:
+                    name: Unit Tests
+                    command: "npm run test:unit -- --reporter mocha-junit-reporter --reporter-options mochaFile=~/results/unit.xml"
+            -   run:
+                    name: Acceptance Tests
+                    command: "npm run test:acceptance -- --reporter mocha-junit-reporter --reporter-options mochaFile=~/results/acceptance.xml"
+
+            # Store Test Results
+            -   store_test_results:
+                    path: ~/results
+            -   store_artifacts:
+                    path: ~/results
+                    destination: results
