@@ -20,10 +20,29 @@ class DiscordMessageController {
      * @param {Message} message
      */
     handleMessageCreated(message) {
-        if (message.mentions.has(this.botUser.getID())) {
+        if (!this.botWasMentioned(message)) {
+            return;
+        }
+
+        if (this._startCommandGiven(message)) {
             const event = new BotMentioned();
             this.messageBroker.publish(event);
         }
+    }
+
+    botWasMentioned(message) {
+        return message.mentions.has(this.botUser.getID());
+    }
+
+    /**
+     * Checks to see if start command was included in message
+     *
+     * @param {Message} message
+     * @return {boolean}
+     * @private
+     */
+    _startCommandGiven(message) {
+        return message.content.toLowerCase().includes('start');
     }
 }
 
