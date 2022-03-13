@@ -42,13 +42,14 @@ class DatabaseConnectionFactory {
      * @private
      */
     async _createPostgresDriver(databaseInformation) {
-        const user = databaseInformation.getUsername();
-        const password = databaseInformation.getPassword();
-        const host = databaseInformation.getHost();
-        const port = Number(databaseInformation.getPort());
-        const database = databaseInformation.getDatabase();
-        const config = { host, port, database, user, password };
-        const client = new Client(config);
+        const config = databaseInformation.toObject();
+        const client = new Client({
+            ...config,
+            user: config.username,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
         await client.connect();
 
         return new PostgresDriverAdapter(client);

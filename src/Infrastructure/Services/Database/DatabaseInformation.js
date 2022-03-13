@@ -39,6 +39,20 @@ class DatabaseInformation {
     getPassword() {
         return this._password;
     }
+
+    /**
+     * @return {Object}
+     */
+    toObject() {
+        return {
+            driver: this._driver,
+            host: this._host,
+            port: this._port,
+            database: this._database,
+            username: this._username,
+            password: this._password
+        };
+    }
 }
 
 module.exports = { DatabaseInformation };
