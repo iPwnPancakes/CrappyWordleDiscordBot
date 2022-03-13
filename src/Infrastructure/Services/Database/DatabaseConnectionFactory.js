@@ -1,10 +1,12 @@
 const { open } = require('sqlite');
 const sqlite3 = require('sqlite3');
+const { Client } = require('pg');
 const { DatabaseConnection } = require('./DatabaseConnection');
 const { DatabaseInformation } = require('./DatabaseInformation');
 const { DriverAdapter } = require('./DriverAdapters/DriverAdapter');
 const { SqliteDriverAdapter } = require('./DriverAdapters/SqliteDriverAdapter');
 const path = require('path');
+const { PostgresDriverAdapter } = require('./DriverAdapters/PostgresDriverAdapter');
 
 class DatabaseConnectionFactory {
     /**
@@ -35,12 +37,21 @@ class DatabaseConnectionFactory {
     /**
      * Creates Driver for Postgres database
      *
-     * @param databaseInformation
-     * @return {Promise<SqliteDriverAdapter>}
+     * @param {DatabaseInformation} databaseInformation
+     * @return {Promise<PostgresDriverAdapter>}
      * @private
      */
     async _createPostgresDriver(databaseInformation) {
-        return await this._createSqliteDriver(databaseInformation);
+        const user = databaseInformation.getUsername();
+        const password = databaseInformation.getPassword();
+        const host = databaseInformation.getHost();
+        const port = Number(databaseInformation.getPort());
+        const database = databaseInformation.getDatabase();
+        const config = { host, port, database, user, password };
+        const client = new Client(config);
+        await client.connect();
+
+        return new PostgresDriverAdapter(client);
     }
 
     /**
