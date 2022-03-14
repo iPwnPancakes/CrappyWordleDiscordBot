@@ -1,13 +1,14 @@
 const { TOKEN } = require('../../../Infrastructure/config');
+const { Client } = require('discord.js');
 
 class DiscordServer {
     /**
      *
-     * @param {function} discordClientFactory
+     * @param {Client} discordClient
      * @param messageController
      */
-    constructor(discordClientFactory, messageController) {
-        this.discordClientFactory = discordClientFactory;
+    constructor(discordClient, messageController) {
+        this.discordClient = discordClient;
         this.messageController = messageController;
     }
 
@@ -17,15 +18,13 @@ class DiscordServer {
      * @returns {Promise<string>}
      */
     start() {
-        const client = this.discordClientFactory();
-
-        client.once('ready', () => {
+        this.discordClient.once('ready', () => {
             console.log('Ready!');
         });
 
-        client.on('messageCreate', this.messageController.handleMessageCreated);
+        this.discordClient.on('messageCreate', this.messageController.handleMessageCreated);
 
-        return client.login(TOKEN);
+        return this.discordClient.login(TOKEN);
     }
 }
 

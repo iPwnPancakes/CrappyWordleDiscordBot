@@ -1,21 +1,23 @@
 const { Provider } = require('./Provider');
 const { DiscordServer } = require('../../Modules/Discord/Infrastructure/server');
 const { DiscordMessageController } = require('../../Modules/Discord/Controllers/DiscordMessageController');
+const { Client } = require('discord.js');
 
 class DiscordServerProvider extends Provider {
     /**
      *
      * @param {DiscordMessageController} messageController
-     * @param {function} discordClientFactory
+     * @param {Client} discordClient
      */
-    constructor(messageController, discordClientFactory) {
+    constructor(messageController, discordClient) {
         super();
         this.messageController = messageController;
-        this.discordClientFactory = discordClientFactory;
+        this.discordClient = discordClient;
     }
 
     register() {
-        this.server = new DiscordServer(this.discordClientFactory, this.messageController);
+
+        this.server = new DiscordServer(this.discordClient, this.messageController);
     }
 
     boot() {

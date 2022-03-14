@@ -34,7 +34,8 @@ const { PostgresGameRepository } = require('./Modules/CrappyWordle/Repositories/
     const randomWordService = new RandomWordService();
     const gameEventController = new CrappyWordleEventController(messageBroker, crappyWordleService, randomWordService);
     const messageBrokerProvider = new MessageBrokerProvider(messageBroker, gameEventController);
-    const discordServerProvider = new DiscordServerProvider(messageController, discordClientFactory);
+    const discordClient = discordClientFactory();
+    const discordServerProvider = new DiscordServerProvider(messageController, discordClient);
 
     const app = new App([messageBrokerProvider, discordServerProvider]);
     app.register();
