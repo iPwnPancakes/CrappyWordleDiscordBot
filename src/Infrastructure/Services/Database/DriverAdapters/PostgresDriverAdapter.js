@@ -1,9 +1,9 @@
 const { DriverAdapter } = require('./DriverAdapter');
-const { Client } = require('pg');
+const PG = require('pg');
 
 class PostgresDriverAdapter extends DriverAdapter {
     /**
-     * @param {Client} postgresClient
+     * @param {PG.Client} postgresClient
      */
     constructor(postgresClient) {
         super();

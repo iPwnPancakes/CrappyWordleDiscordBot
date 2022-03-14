@@ -1,6 +1,6 @@
 const { open } = require('sqlite');
 const sqlite3 = require('sqlite3');
-const { Client } = require('pg');
+const PG = require('pg');
 const { DatabaseConnection } = require('./DatabaseConnection');
 const { DatabaseInformation } = require('./DatabaseInformation');
 const { DriverAdapter } = require('./DriverAdapters/DriverAdapter');
@@ -43,7 +43,7 @@ class DatabaseConnectionFactory {
      */
     async _createPostgresDriver(databaseInformation) {
         const config = databaseInformation.toObject();
-        const client = new Client({
+        const client = new PG.Client({
             ...config,
             user: config.username,
             ssl: {
