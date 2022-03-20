@@ -11,8 +11,10 @@ class SqliteGameRepository extends GameRepository {
     }
 
     async save(game) {
-        await this.databaseConnection.insert('INSERT INTO games VALUES (:id, :word, :progress)', {
+        const query = 'INSERT INTO games (id, thread_id, word, progress) VALUES (:id, :thread_id, :word, :progress)';
+        await this.databaseConnection.insert(query, {
             ':id': game.getID(),
+            ':thread_id': game.getThreadID(),
             ':word': game.getWord().toString(),
             ':progress': game.getProgress().toString()
         });

@@ -22,8 +22,8 @@ class StartCommand extends Command {
             autoArchiveDuration: 60
         });
 
-        // const game = new CrappyWordle(thread.id, randomWord);
-        // await this.gameRepository.save(game);
+        const game = new CrappyWordle(thread.id, randomWord);
+        await this.gameRepository.save(game);
     }
 }
 
