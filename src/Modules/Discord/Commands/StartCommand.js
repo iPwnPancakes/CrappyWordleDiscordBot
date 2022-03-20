@@ -1,19 +1,29 @@
 const { Command } = require('../Infrastructure/Commands/Command');
-const { BotMentioned } = require('../Events/BotMentioned');
-const { MessageBroker } = require('../../../Infrastructure/Services/MessageBroker');
+const { Word } = require('../../CrappyWordle/Models/Word');
+const { CrappyWordle } = require('../../CrappyWordle/Models/CrappyWordle');
+const { RandomWordService } = require('../../CrappyWordle/Services/RandomWordService');
+const { GameRepository } = require('../../CrappyWordle/Repositories/GameRepository');
 
 class StartCommand extends Command {
     /**
-     * @param {MessageBroker} messageBroker
+     * @param {RandomWordService} randomWordService
+     * @param {GameRepository} gameRepository
      */
-    constructor(messageBroker) {
+    constructor(randomWordService, gameRepository) {
         super();
-        this.messageBroker = messageBroker;
+        this.randomWordService = randomWordService;
+        this.gameRepository = gameRepository;
     }
 
-    handle(message) {
-        const event = new BotMentioned();
-        this.messageBroker.publish(event);
+    async handle(message) {
+        const randomWord = new Word(this.randomWordService.getRandomWord());
+        const thread = await message.channel.threads.create({
+            name: `Guess the ${ randomWord.toString().length } letter word!`,
+            autoArchiveDuration: 60
+        });
+
+        // const game = new CrappyWordle(thread.id, randomWord);
+        // await this.gameRepository.save(game);
     }
 }
 

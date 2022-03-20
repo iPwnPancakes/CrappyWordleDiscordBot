@@ -4,19 +4,23 @@ const { GameID } = require('./GameID');
 
 class CrappyWordle {
     /**
-     *
-     * @param {GameID} id
+     * @param {String} threadID
      * @param {Word} word
      * @param {Progress} progress
      */
-    constructor(id = null, word = null, progress = null) {
-        this.id = id ?? new GameID();
+    constructor(threadID, word = null, progress = null) {
+        this.id = new GameID();
+        this._threadID = threadID;
         this._word = word ?? new Word('default');
         this._progress = word && progress ? progress : new Progress(this._word);
     }
 
     getID() {
         return this.id.getID();
+    }
+
+    getThreadID() {
+        return this._threadID;
     }
 
     /**

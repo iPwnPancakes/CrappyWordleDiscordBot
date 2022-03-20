@@ -8,7 +8,7 @@ describe('Guess Word', () => {
         const initialWord = new Word('wordle');
         const progressAsWord = new Word('w****e');
         const initialProgress = new Progress(initialWord, progressAsWord);
-        const game = new CrappyWordle(null, initialWord, initialProgress);
+        const game = new CrappyWordle('', initialWord, initialProgress);
         const guess = new Word('warped');
 
         game.guessWord(guess);
